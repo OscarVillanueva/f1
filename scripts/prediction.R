@@ -28,5 +28,19 @@ print(rm)
 par(mfrow=c(2,2))
 plot(model)
 
+# Significativas
+step.model = stepAIC(model, direction = "backward")
+summary(step.model)
+plot(step.model)
+
+#Cambiar la muestra
+points = within(points, grid)
+model = lm(model, points[-t.id, ])
+pred = predict(model, points[-t.id, ])
+rm = RMSE(pred, points[-t.id,]$position)
+print(rm)
+plot(model)
+
+
 
 
